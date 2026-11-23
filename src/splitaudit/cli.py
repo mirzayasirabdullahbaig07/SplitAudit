@@ -7,6 +7,8 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("simulate", help="Sweep group-effect share rho on synthetic data (pipeline check)")
     s.add_argument("--out", default="results/simulate"); s.add_argument("--repeats", type=int, default=5)
+    s.add_argument("--fingerprint-sd", type=float, nargs="+", default=[1.5],
+                   help="group-specific feature-offset SD(s); several values give a rho x fingerprint grid")
     a = sub.add_parser("audit", help="Audit YOUR csv")
     a.add_argument("--csv", required=True); a.add_argument("--label", required=True); a.add_argument("--group", required=True)
     a.add_argument("--features", nargs="*", help="default: all numeric columns except label/group")
@@ -20,10 +22,11 @@ def main(argv=None):
     if args.cmd == "simulate":
         from .synthetic import make_grouped
         allr = []
-        for rho in [0.0, 0.25, 0.5, 0.75, 1.0]:
-            df = make_grouped(rho=rho, seed=1)
-            r = optimism(run_audit(df, [c for c in df if c.startswith("f")], repeats=args.repeats))
-            r.insert(0, "rho", rho); allr.append(r)
+        for fp in args.fingerprint_sd:
+            for rho in [0.0, 0.25, 0.5, 0.75, 1.0]:
+                df = make_grouped(rho=rho, seed=1, fingerprint_sd=fp)
+                r = optimism(run_audit(df, [c for c in df if c.startswith("f")], repeats=args.repeats))
+                r.insert(0, "rho", rho); r.insert(0, "fp_sd", fp); allr.append(r)
         t = pd.concat(allr); print("SYNTHETIC sweep - pipeline check only\n", t.round(3).to_string(index=False))
         t.round(4).to_csv(out / "rho_sweep.csv", index=False)
     else:

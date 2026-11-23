@@ -42,3 +42,17 @@ def test_label_permutation_null_is_at_chance():
     d = make_grouped(rho=0.5, seed=5)
     s = label_permutation_null(d, F(d), n_perm=10)
     assert 0.45 < s.mean() < 0.55
+
+
+def test_true_no_leakage_control_has_zero_optimism():
+    """rho = 0 AND fingerprint_sd = 0: nothing group-specific exists, so optimism must be ~0."""
+    d = make_grouped(rho=0.0, fingerprint_sd=0.0, seed=6)
+    r = optimism(run_audit(d, F(d), models=("rf",), repeats=4))
+    assert r.ci_lo.iloc[0] <= 0.0 <= r.ci_hi.iloc[0] or abs(r.optimism.iloc[0]) < 0.015
+
+
+def test_covariate_leakage_alone_gives_positive_optimism_for_rf():
+    """rho = 0 but large fingerprint: random forest memorises group offsets -> optimism > 0."""
+    d = make_grouped(rho=0.0, fingerprint_sd=1.5, seed=6)
+    r = optimism(run_audit(d, F(d), models=("rf",), repeats=4))
+    assert r.ci_lo.iloc[0] > 0.0

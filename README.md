@@ -28,10 +28,12 @@ pip install -e . pytest && python -m pytest -q      # ~90 s
 splitaudit simulate --repeats 3                      # synthetic rho sweep
 splitaudit audit --csv data.csv --label resistant --group site --repeats 10   # YOUR data
 ```
+Two leakage mechanisms are simulated separately: label leakage (`rho`) and covariate leakage (`fingerprint_sd`, group-specific feature offsets). Optimism needs the model to be able to identify groups from features: at `fingerprint_sd=0` it stays ≈0 even at `rho=1`; at `rho=0` a random forest still shows ≈0.03 AUC optimism from fingerprints alone. Grid: `splitaudit simulate --fingerprint-sd 0 1.5`.
+
 Synthetic sweep (2 repeats, illustrative only): RF optimism rises from ≈0.03 AUC at ρ=0 to ≈0.23 at ρ=1.
 
 ## 5. What is verified / not
-Verified: group splits never share groups and random ones do; optimism ≈ 0 without group effect and large with it (CI excludes 0); monotone in ρ; same-group-NN diagnostic flags random splits; permutation null ≈ chance.
+Verified: group splits never share groups and random ones do; optimism ≈ 0 when there is no group effect AND no group fingerprint (`rho=0, fingerprint_sd=0`) and large with both (CI excludes 0); monotone in ρ; same-group-NN diagnostic flags random splits; permutation null ≈ chance.
 Not verified: behaviour on real AMR data. **Caveat:** at high ρ, group-split AUC can fall *below* 0.5 (group effects don't transfer, so the model anti-learns). Report this honestly; it is a known artefact, not a bug.
 
 ## 6. Limitations
