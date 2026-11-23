@@ -17,7 +17,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 from sklearn.base import clone
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score
 from sklearn.model_selection import GroupKFold, KFold, StratifiedKFold
@@ -28,6 +28,7 @@ from sklearn.preprocessing import StandardScaler
 MODELS = {
     "logreg": make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000)),
     "rf": RandomForestClassifier(n_estimators=150, min_samples_leaf=1, n_jobs=-1, random_state=0),
+    "gb": HistGradientBoostingClassifier(max_iter=150, learning_rate=0.1, random_state=0),
 }
 
 
