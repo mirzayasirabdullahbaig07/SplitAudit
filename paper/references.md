@@ -8,6 +8,8 @@ VERIFIED against Crossref / arXiv / PMC pages this session (title, authors, venu
 - [Koldasbayeva2025] Koldasbayeva D, Zaytsev A. Foundation for unbiased cross-validation of spatio-temporal models for species distribution modeling. arXiv:2502.03480 (submitted Jan 2025, revised Dec 2025). Reports random CV inflating AUC by up to 0.16.
 - [Meyer2019] Meyer H, Reudenbach C, Wöllauer S, Nauss T. Importance of spatial predictor variable selection in machine learning applications: moving from data reproduction to spatial prediction. Ecol Model 2019;411:108815. doi:10.1016/j.ecolmodel.2019.108815. NOTE: our notes described arXiv 1908.07805 only as "spatial CV essential"; its title is about spatial predictor selection, so check the exact claim before citing it for random-CV optimism.
 
+- [DelgadoBaquerizo2022] Delgado-Baquerizo M, Hu H-W, Maestre FT, et al. The global distribution and environmental drivers of the soil antibiotic resistome. Microbiome 2022;10:219. doi:10.1186/s40168-022-01405-w. Read from the PDF the user supplied (Methods: global mapping), 2026-11-25; Methods and abstract checked, not the supplement.
+
 FROM A TOOL SEARCH 2026-11-25 (search snippets only; verify):
 - [Joeres2025] Joeres R, Blumenthal DB, Kalinina OV. Data splitting to avoid information leakage with DataSAIL. Nat Commun 2025;16. doi:10.1038/s41467-025-58606-8 (addendum doi 10.1038/s41467-025-67495-w, Feb 2026).
 - [Valavi2019] Valavi R, Elith J, Lahoz-Monfort JJ, Guillera-Arroita G. blockCV. Methods Ecol Evol 2019;10:225-232. doi:10.1111/2041-210X.13107
