@@ -49,7 +49,7 @@ The only thing that differs between schemes is how rows are assigned to folds; f
 
 **3.3 Leakage diagnostic (model-free).** For every test row we find its nearest training row in standardised feature space and record whether the two rows belong to the same group. The share of test rows whose nearest neighbour is from their own group is the *same-group nearest-neighbour rate*. It is 0 under a clean group split by construction. Under a random split it measures how identifiable groups are from the features, independently of any model.
 
-**3.4 Permutation null (sanity check).** Labels are permuted within each group, which destroys the feature–label relationship while preserving group sizes and base rates. The group-split score must then be at chance (AUC ≈ 0.5); a score above chance indicates a bug. In our tests the mean over 10 permutations lies between 0.45 and 0.55.
+**3.4 Permutation null (sanity check).** Labels are permuted within each group, which destroys the feature–label relationship while preserving group sizes and base rates. The group-split score should then be at chance (AUC ≈ 0.5), and a score clearly above chance would indicate a bug. We ran 10 permutations for each of 3 models on 32 simulated datasets (rho 0 or 1, fingerprint SD 0 or 1.5, 8 seeds; 96 cases). The mean over all cases was 0.501, and no case was consistently above chance. Per-case means ranged from 0.365 to 0.556; 91 of 96 lay within 0.45-0.55, and all 5 exceptions occurred at rho = 1 and fingerprint SD 1.5 (logistic regression 0.365, 0.434, 0.551; random forest 0.444, 0.556). This is the setting in which group-level label propensities are strongest and only 40 groups are available, so deviations in either direction are expected from sampling noise in group base rates (HYPOTHESIS: not separately tested); the check is therefore a bug detector for large positive departures, not a test that each dataset sits exactly at 0.5.
 
 **3.5 Models.** Logistic regression (standardised features), random forest (150 trees, fully grown), and histogram gradient boosting (150 iterations, learning rate 0.1), representing low-capacity and memorisation-prone learners. Hyperparameters are fixed and not tuned, so that differences come from the split and not from tuning.
 
@@ -73,7 +73,7 @@ Defaults are G = 40 and n = 25 (1,000 rows). ρ = 0 and s = 0 is the true no-lea
 
 **4.7 Sensitivity to group structure.** Holding ρ = 1 and s = 1.5, we varied the number of groups (10, 20, 40, 80) and rows per group (10, 25, 50), with 8 datasets per cell (Fig 3). Averaged over group sizes, logistic regression optimism falls from 0.233 at 10 groups to 0.100 at 80 (paired t-test p = 0.003), whereas random forest optimism stays between 0.22 and 0.27 (10 vs 80 groups, p = 0.12). For random forest, optimism rises with rows per group (0.209 at 10 rows, 0.262 at 50; p = 0.012); for logistic regression the trend is weaker (0.138 to 0.166; p = 0.097). These tests are exploratory and uncorrected for multiple comparisons. Optimism stayed between 0.09 and 0.30 in every cell, so the effect is not specific to one configuration.
 
-**4.8 A known artefact.** At high ρ, the group-split AUC of some models falls below 0.5 (about 0.4 for logistic regression at ρ = 1, s = 1.5 in single-dataset runs). Group effects do not transfer to new groups, so a model that learned them performs worse than chance on held-out groups. This inflates the measured optimism relative to a model that merely guessed, and is reported here rather than hidden.
+**4.8 A known artefact.** At high ρ, the group-split AUC of some models falls below 0.5 (at ρ = 1, s = 1.5 the mean group-split AUC over 8 datasets was 0.497 for logistic regression, 0.507 for random forest and 0.510 for gradient boosting, with individual datasets as low as 0.379 for logistic regression). Group effects do not transfer to new groups, so a model that learned them performs worse than chance on held-out groups. This inflates the measured optimism relative to a model that merely guessed, and is reported here rather than hidden.
 
 **4.9 Limitations of the synthetic study.** A single generative model; binary labels; AUC as the main metric; 12 features; untuned models; and interval estimates based on 8 datasets. The simulation shows that the audit behaves correctly when the truth is known. It does not show how large optimism is in real data, which is the subject of Section 5.
 
@@ -111,7 +111,7 @@ Defaults are G = 40 and n = 25 (1,000 rows). ρ = 0 and s = 0 is the true no-lea
 
 **Limitations.** Labels are gene detections, not a real prediction task from environmental covariates (none are in the table); k-means blocks are arbitrary and block count changes the result; same-operon genes (e.g. mexA/mexE) were not removed; intervals are over split repeats only.
 
-## 5.4 Limitations specific to the case studies
+## 5.3 Limitations specific to the case studies
 - Intervals reflect split repeats on one dataset only; they do not capture sampling variability across datasets.
 - Groups are nested/overlapping (ST within phylogroup), and country is partly confounded with sampling effort; results are per grouping, not additive.
 - Genes may be physically linked (plasmids), so some predictability is biological, not leakage; the audit measures optimism from random splitting, not whether the model is "right for the right reason".

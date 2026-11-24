@@ -10,9 +10,11 @@ Method: recomputed from saved CSVs in docs/ (and the two files created in this s
 - Sec 5.1 robustness: 36/36 cells positive and CI > 0; range 0.013-0.084.
 - Sec 5.2 soil: 31/45 positive, 13/45 CI > 0; medians 0.002 (site), 0.002 (10 blocks), 0.012 (20 blocks); by model 0.002/0.004/0.010; max 0.056; random AUC range 0.565-0.942.
 
-## NOT verifiable from saved files (check or regenerate)
-1. Sec 4.2 "2 repeats of five-fold" for the multi-seed run: no repeat count in the CSV.
-2. Sec 3.4 "permutation null between 0.45 and 0.55 (mean over 10 permutations)": no saved permutation-null CSV found. Re-run and save, or remove the numbers.
-3. Sec 4.8 "about 0.4 AUC for logistic regression at rho 1, fp 1.5 in single-dataset runs": no saved group-split AUC for that cell was checked.
-4. Sec 5.1 group-split AUC range "0.77-0.94" is from the robustness CSV (min 0.768); the main table shows 0.767 for logreg/country: rounding across different repeat counts (10 vs 5). Say which in the text.
-5. Intro/related work: statements about other papers are unverified against PDFs (see paper/references.md and docs/review_coding_sheet.csv).
+## Resolved on 2026-11-25 (re-run, files saved)
+- Repeats: `scripts/multiseed.py` uses repeats=2, matching Sec 4.2.
+- Permutation null (`docs/synthetic_permutation_null.csv`, `scripts/permutation_null.py`): 96 cases, mean 0.501; per-case means 0.365-0.556; 5 of 96 outside 0.45-0.55, all at rho 1, fp 1.5. The earlier manuscript claim ("between 0.45 and 0.55") was too strong and has been rewritten in Sec 3.4.
+- Sec 4.8: the "about 0.4" claim was only true for some datasets. Over 8 datasets the mean group-split AUC at rho 1, fp 1.5 is 0.497 (logreg), 0.507 (rf), 0.510 (gb), minimum 0.379 (`docs/synthetic_group_auc_rho1_fp1.5.csv`). Sentence rewritten. Note this weakens the "below chance" artefact: on average it is at chance, and the below-chance cases are dataset-specific.
+
+## Still open
+1. Sec 5.1 group-split AUC range "0.77-0.94" is from the robustness run (min 0.768); main table shows 0.767 for logreg/country (10 vs 5 repeats). Say which run each number comes from.
+2. Intro/related work statements about other papers are unverified against PDFs (see paper/references.md and docs/review_coding_sheet.csv).
