@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use SplitAudit, please cite it as below. (DRAFT: fill in every TODO before release.)"
+title: "SplitAudit: auditing how much random splits overstate performance on grouped data"
+type: software
+authors:
+  - family-names: "Fiaz"
+    given-names: "Syeda Faiqa"
+    # TODO: affiliation, ORCID
+  # TODO: add the other authors (supervisor, collaborators) in agreed order
+repository-code: "https://github.com/mirzayasirabdullahbaig07/SplitAudit"
+version: "0.2.0"          # TODO: set when the release is tagged
+date-released: "2026-11-25"  # TODO: set at release
+license: "TODO"           # TODO: choose a licence and add the LICENSE file
+# doi: TODO               # add the Zenodo DOI after the first release
