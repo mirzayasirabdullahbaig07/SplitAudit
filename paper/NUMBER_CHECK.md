@@ -18,3 +18,6 @@ Method: recomputed from saved CSVs in docs/ (and the two files created in this s
 ## Still open
 1. Sec 5.1 group-split AUC range "0.77-0.94" is from the robustness run (min 0.768); main table shows 0.767 for logreg/country (10 vs 5 repeats). Say which run each number comes from.
 2. Intro/related work statements about other papers are unverified against PDFs (see paper/references.md and docs/review_coding_sheet.csv).
+
+## Correction 2026-11-25 (identifiability)
+Soil same-group NN rates were compared with a chance level of 1/groups in earlier text. Actual chance (sum of squared group proportions) is 0.007 (site), 0.113 (10 blocks), 0.054 (20 blocks). The earlier statements 'far above chance' (Sec 6.2) and 'a high rate signals risk, not certainty' (checklist item 11, Fig 5) were wrong and are rewritten. Source: docs/nn_vs_optimism.csv.

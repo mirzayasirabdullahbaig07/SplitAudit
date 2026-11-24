@@ -158,6 +158,7 @@ Random cross-validation can overstate performance on grouped data, but how much 
 - **Fig 2** (`docs/fig2_optimism_vs_rho.png`). Simulated optimism (random minus group AUC) by label-leakage rho and model, for each fingerprint SD; points are means over 8 datasets with t-intervals across datasets.
 - **Fig 3** (`docs/fig3_sensitivity.png`). Sensitivity of simulated optimism to the number of groups and rows per group (rho = 1, fingerprint SD = 1.5; 8 datasets per cell).
 - **Fig 4** (`docs/fig4_real_data_optimism.png`). Optimism for each model in (A) 738 E. coli genomes, 18 AUC cells, and (B) the Scottish soil survey, 45 AUC cells; dot = mean, line = split-repeat interval (understates uncertainty across datasets).
+- **Fig 6** (`docs/fig6_identifiability_vs_optimism.png`). Optimism against group identifiability (same-group nearest-neighbour rate minus chance, random split) for the simulation (rho = 1), the E. coli cells and the soil cells. Descriptive only: each dataset has few distinct identifiability values, cells within a dataset are not independent, and no p-values are given.
 - **Fig 5** (`docs/fig5_audit_flow.png`). The SplitAudit procedure: hygiene checks, three splits, optimism, two diagnostics, and how to read them together.
 
 ## Appendix A. Reporting checklist (draft)
