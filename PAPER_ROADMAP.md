@@ -73,3 +73,22 @@ Random train/test splits on grouped data (site, taxon, patient, study) overstate
 2. Run `python -m pytest -q` and `splitaudit simulate --repeats 3`; save output to `EXPERIMENT_LOG.md`.
 3. Start the Week 1 literature spreadsheet.
 4. Ask review collaborators which datasets are public and have a site/sample/taxon column.
+
+## 10. Status update (2026-11-25)
+
+Done (drafted or computed; all drafts need collaborator review):
+- Sec 1-2 draft, Sec 3-4 (synthetic validation incl. 8-seed multi-dataset intervals, sensitivity, NN diagnostic, permutation null), Sec 5 (E. coli, soil), Sec 6-8, checklist and pilot, references list, assembled `paper/MANUSCRIPT_DRAFT.md`, number check.
+- Figures: Fig 2, Fig 3, Fig 4 (real-data optimism, as dots with intervals), and the audit flowchart (numbered Fig 5 in the manuscript, not the roadmap's Fig 6).
+- Go/no-go gates: Week 2 passed (E. coli has usable groups; soil table has coordinates but no metadata); Week 4: optimism is clearly non-zero in E. coli (0.013-0.084) and near-null in soil, so both outcomes are reported.
+
+Changes from the plan above:
+- Roadmap Fig 1 (schematic of where leakage enters) is not made.
+- Roadmap Fig 5 (review meta-analysis, Spearman) is dropped for now: only 2 papers are fully coded, so a correlation is not meaningful. Replaced by a descriptive checklist pilot. Revisit only if the collaborators' review gives about 10+ coded papers.
+- Real data: one clinical, one environmental dataset; no soil dataset with environmental covariates yet.
+
+Open before submission:
+- Verify all statements about other papers against PDFs; read L01, L04, L05 in full; second coder.
+- Resolve [CITE] markers and unverified references (see `paper/references.md`).
+- Check figure captions; decide on a third dataset.
+- Reproducibility: figure scripts exist; run `pytest` on a clean install; tag release and mint Zenodo DOI; add data/code availability statement.
+- Authors, affiliations, venue choice.
