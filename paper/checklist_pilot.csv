@@ -1,0 +1,16 @@
+item,L01,L02,L03,L04,L05_abstract_only
+1 groups listed,NR,NS,NS,NR,NR
+2 near-duplicates handled,NR,NS,NS,NR,NR
+3 split mirrors intended use,NR,NS,NA,NR,NR
+4 split scheme stated,NR,NS,N,NR,NS
+5 random AND group score reported,NR,N,N,NR,NR
+6 spatial block method stated,NR,NA,NA,NR,NR
+7 preprocessing inside folds,NR,N,NS,NR,NR
+8 tuning without test fold,NR,NS,NS,NR,NR
+9 label-leak check reported,NR,NS,NS,NR,NR
+10 selection not tied to label,NR,N,NS,NR,NR
+11 identifiability diagnostic,NR,N,N,NR,NR
+12 permutation null,NR,N,N,NR,NR
+13 external set reported,NR,N,Y,NR,NR
+14 interval meaning stated,NR,NS,Y,NR,NS
+15 threshold-free + threshold metric,NR,Y,Y,NR,NR
