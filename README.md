@@ -1,4 +1,4 @@
-# Project B — SplitAudit
+# SplitAudit
 **How much does an ordinary random train/test split overstate performance when samples come in groups (sites, taxa, patients, studies)? A reusable audit — built to be applied to antimicrobial-resistance (AMR) ML.**
 
 Status: framework + tests complete (5 pass). Synthetic sweep works. **No real-data results yet** — you need the real dataset.
