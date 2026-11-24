@@ -35,6 +35,7 @@ Needs verification before submission:
 - **Figure captions** (Fig 2, Fig 3) were written from memory of the plots.
 
 ## 5. Known weaknesses a reviewer will raise
+- **Novelty / prior tools (found 2026-11-25).** Existing tools overlap: DataSAIL (leakage-reduced splitting), blockCV (spatial and leave-group-out folds), and especially the R package BORG, which includes a random-versus-blocked CV comparison. An earlier draft said no reusable tool existed; that was wrong and has been corrected. Before submission someone should install BORG and compare it with SplitAudit on the simulated data, then state the differences precisely.
 - Two real datasets; one has no covariates.
 - Real-data intervals cover repeated splits of one dataset only and understate uncertainty across datasets.
 - Prevalence of unstated or leaky splits in the literature is not established (five papers coded, two read fully).

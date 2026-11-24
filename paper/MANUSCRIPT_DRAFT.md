@@ -12,7 +12,7 @@ Machine-learning studies of antimicrobial resistance (AMR) often evaluate models
 
 **Para 2 — what is known.** The issue is established in genomic AMR, where genome-distance-aware, phylogeny-aware and homology-aware validation lower scores [Lüftinger 2021; Hu 2024; Yu, Wheeler & Barquist 2025 — CITE after verification], and in spatial ecology, where random cross-validation overestimated AUC by up to 0.16 in species distribution models [Koldasbayeva & Zaytsev 2025; Meyer et al. — CITE].
 
-**Para 3 — the gap (edit with collaborators).** In the environmental-AMR papers we examined (small sample, see 2.2), the split type and the handling of near-identical samples were often not stated, and we found no reusable tool that quantifies the inflation on a given dataset. We do not claim that environmental studies are generally leaky; we provide a way to measure it.
+**Para 3 — the gap (REVISED 2026-11-25 after a tool search; edit with collaborators).** Tools for avoiding or detecting leakage already exist: DataSAIL for leakage-reduced splitting of biomolecular data [Joeres 2025], blockCV for spatially and environmentally separated folds, including leave-group-out [Valavi 2019], and general leakage checkers such as the R package BORG, which also compares random and blocked cross-validation side by side [CITE; check what it reports], bioLeak and the Python package mlleak. What we did not find, in a limited search, is a tool aimed at AMR studies that combines (i) the random-minus-group score difference with an interval over repeats, (ii) a model-free, chance-referenced measure of how identifiable the groups are, and (iii) a within-group permutation sanity check, evaluated against simulations with known ground truth. In the environmental-AMR papers we examined (small sample, see 2.2), the split type and the handling of near-identical samples were often not stated. We do not claim that environmental studies are generally leaky, nor that no comparable functionality exists; we offer one open, tested audit and measurements on real AMR data.
 
 **Para 4 — contributions.** (i) SplitAudit: the audit protocol and tool. (ii) Simulations separating label leakage from covariate leakage, showing optimism requires groups to be identifiable from features. (iii) Two real-data case studies with contrasting outcomes. (iv) A reporting checklist.
 
@@ -34,6 +34,12 @@ Five papers is a case sample, not a survey. A systematic review is needed before
 ### 2.3 Spatial and ecological validation
 Koldasbayeva & Zaytsev 2025; Meyer et al.; spatial CV assessments [CITE].
 
+
+### 2.4 Software for leakage-aware splitting and detection (added 2026-11-25; from search snippets, verify each before citing)
+- DataSAIL (Joeres, Blumenthal & Kalinina, Nat Commun 2025, doi 10.1038/s41467-025-58606-8): Python package that formulates leakage-reduced splitting as an optimisation problem for biomolecular data. It produces splits; it is not an audit of how much a given random split inflated a score.
+- blockCV (Valavi et al., Methods Ecol Evol 2019, doi 10.1111/2041-210X.13107): R package for spatially or environmentally separated folds; recent versions add leave-group-out folds.
+- BORG (R, CRAN): detects index overlap, duplicates, preprocessing, target and group leakage and temporal violations, and offers a function to run random and blocked CV side by side. This overlaps most with the optimism comparison in SplitAudit; the paper must state precisely what SplitAudit adds (model-free chance-referenced identifiability rate, within-group permutation null, interval over repeats, simulation validation, AMR case studies) and should be checked against BORG's actual outputs.
+- bioLeak (R, CRAN), mlleak (Python/PyPI), leakaudit and leakr (R): general leakage checkers; leakaudit targets near-duplicate images.
 
 ## 3. Audit method
 
@@ -201,6 +207,12 @@ VERIFIED against Crossref / arXiv / PMC pages this session (title, authors, venu
 - [Yu2025] Yu Y, Wheeler NE, Barquist L. Biased sampling driven by bacterial population structure confounds machine learning prediction of antimicrobial resistance. PLOS Biology 2025 (published 2025-12-16). doi:10.1371/journal.pbio.3003539. NOTE: earlier notes cited the bioRxiv preprint (10.1101/2025.01.07.631773); cite the PLOS Biology version.
 - [Koldasbayeva2025] Koldasbayeva D, Zaytsev A. Foundation for unbiased cross-validation of spatio-temporal models for species distribution modeling. arXiv:2502.03480 (submitted Jan 2025, revised Dec 2025). Reports random CV inflating AUC by up to 0.16.
 - [Meyer2019] Meyer H, Reudenbach C, Wöllauer S, Nauss T. Importance of spatial predictor variable selection in machine learning applications: moving from data reproduction to spatial prediction. Ecol Model 2019;411:108815. doi:10.1016/j.ecolmodel.2019.108815. NOTE: our notes described arXiv 1908.07805 only as "spatial CV essential"; its title is about spatial predictor selection, so check the exact claim before citing it for random-CV optimism.
+
+FROM A TOOL SEARCH 2026-11-25 (search snippets only; verify):
+- [Joeres2025] Joeres R, Blumenthal DB, Kalinina OV. Data splitting to avoid information leakage with DataSAIL. Nat Commun 2025;16. doi:10.1038/s41467-025-58606-8 (an addendum, doi 10.1038/s41467-025-67495-w, appeared Feb 2026).
+- [Valavi2019] Valavi R, Elith J, Lahoz-Monfort JJ, Guillera-Arroita G. blockCV: an R package for generating spatially or environmentally separated folds for k-fold cross-validation of species distribution models. Methods Ecol Evol 2019;10:225-232. doi:10.1111/2041-210X.13107
+- [BORG] BORG: Bounded Outcome Risk Guard for Model Evaluation (CRAN; author/version/year to confirm).
+- bioLeak (CRAN), mlleak (PyPI), leakaudit (CRAN), leakr (CRAN): names only; confirm before citing.
 
 FROM THE DATASET FILE (ro-crate-metadata.json), not re-checked online:
 - [Knapp2019] Knapp CW, Graham DW, Freitag T, Pagaling E, Hough R, Avery L, Zhu Y-G, Su J, Zhou XY. Antibiotic resistance genes found in soils across the entire Scottish landscape (2007-10). NERC EIDC, 2019. doi:10.5285/d3498e93-4ac5-4eab-bc1a-eb2328771d24. Licence OGL-UK-3.0.

@@ -12,7 +12,7 @@ Machine-learning studies of antimicrobial resistance (AMR) often evaluate models
 
 **Para 2 — what is known.** The issue is established in genomic AMR, where genome-distance-aware, phylogeny-aware and homology-aware validation lower scores [Lüftinger 2021; Hu 2024; Yu, Wheeler & Barquist 2025 — CITE after verification], and in spatial ecology, where random cross-validation overestimated AUC by up to 0.16 in species distribution models [Koldasbayeva & Zaytsev 2025; Meyer et al. — CITE].
 
-**Para 3 — the gap (edit with collaborators).** In the environmental-AMR papers we examined (small sample, see 2.2), the split type and the handling of near-identical samples were often not stated, and we found no reusable tool that quantifies the inflation on a given dataset. We do not claim that environmental studies are generally leaky; we provide a way to measure it.
+**Para 3 — the gap (REVISED 2026-11-25 after a tool search; edit with collaborators).** Tools for avoiding or detecting leakage already exist: DataSAIL for leakage-reduced splitting of biomolecular data [Joeres 2025], blockCV for spatially and environmentally separated folds, including leave-group-out [Valavi 2019], and general leakage checkers such as the R package BORG, which also compares random and blocked cross-validation side by side [CITE; check what it reports], bioLeak and the Python package mlleak. What we did not find, in a limited search, is a tool aimed at AMR studies that combines (i) the random-minus-group score difference with an interval over repeats, (ii) a model-free, chance-referenced measure of how identifiable the groups are, and (iii) a within-group permutation sanity check, evaluated against simulations with known ground truth. In the environmental-AMR papers we examined (small sample, see 2.2), the split type and the handling of near-identical samples were often not stated. We do not claim that environmental studies are generally leaky, nor that no comparable functionality exists; we offer one open, tested audit and measurements on real AMR data.
 
 **Para 4 — contributions.** (i) SplitAudit: the audit protocol and tool. (ii) Simulations separating label leakage from covariate leakage, showing optimism requires groups to be identifiable from features. (iii) Two real-data case studies with contrasting outcomes. (iv) A reporting checklist.
 
@@ -33,6 +33,12 @@ Five papers is a case sample, not a survey. A systematic review is needed before
 
 ### 2.3 Spatial and ecological validation
 Koldasbayeva & Zaytsev 2025; Meyer et al.; spatial CV assessments [CITE].
+
+### 2.4 Software for leakage-aware splitting and detection (added 2026-11-25; from search snippets, verify each before citing)
+- DataSAIL (Joeres, Blumenthal & Kalinina, Nat Commun 2025, doi 10.1038/s41467-025-58606-8): Python package that formulates leakage-reduced splitting as an optimisation problem for biomolecular data. It produces splits; it is not an audit of how much a given random split inflated a score.
+- blockCV (Valavi et al., Methods Ecol Evol 2019, doi 10.1111/2041-210X.13107): R package for spatially or environmentally separated folds; recent versions add leave-group-out folds.
+- BORG (R, CRAN): detects index overlap, duplicates, preprocessing, target and group leakage and temporal violations, and offers a function to run random and blocked CV side by side. This overlaps most with the optimism comparison in SplitAudit; the paper must state precisely what SplitAudit adds (model-free chance-referenced identifiability rate, within-group permutation null, interval over repeats, simulation validation, AMR case studies) and should be checked against BORG's actual outputs.
+- bioLeak (R, CRAN), mlleak (Python/PyPI), leakaudit and leakr (R): general leakage checkers; leakaudit targets near-duplicate images.
 
 ## Writing cautions
 - Do not write "studies in the field are leaky" until the review sample supports it.

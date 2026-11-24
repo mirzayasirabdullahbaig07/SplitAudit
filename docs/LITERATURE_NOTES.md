@@ -21,7 +21,7 @@ Use: our synthetic optimism (up to ~0.24 AUC) is larger than 0.16, which is expe
 Wilhelm et al. 2022 (soil health from microbiome, Soil Biol Biochem 164:108472); Aghdam & Solís-Lemus (potato yield/disease from soil microbiome, BMC Bioinformatics 2024).
 
 ## Draft gap statement (≤150 words) — DRAFT, edit with your collaborators
-Random cross-validation is known to overstate performance when samples are grouped by phylogeny, site or space, in genomic AMR prediction and in spatial ecology. Yet machine-learning studies of antimicrobial resistance in soil and other environmental samples often do not state which validation split they used, and in our searches we found no soil-specific audit and no reusable tool that quantifies how much a random split inflates their scores. We present SplitAudit, an open-source audit that compares random, stratified and group-held-out splits on identical data and models, with a model-free leakage diagnostic and a permutation null; we validate it on simulations with known ground truth, apply it to public soil data, and propose a short reporting checklist.
+Random cross-validation is known to overstate performance when samples are grouped by phylogeny, site or space, in genomic AMR prediction and in spatial ecology. Yet machine-learning studies of antimicrobial resistance in soil and other environmental samples often do not state which validation split they used. Tools for leakage-aware splitting or leakage detection exist (e.g. DataSAIL, blockCV, BORG, bioLeak; see below); in a limited search we did not find one that pairs a random-versus-group optimism estimate with a chance-referenced identifiability measure and a permutation check, validated on simulations and AMR data. We present SplitAudit, an open-source audit that compares random, stratified and group-held-out splits on identical data and models, with a model-free leakage diagnostic and a permutation null; we validate it on simulations with known ground truth, apply it to public soil data, and propose a short reporting checklist.
 
 ## Still to do
 1. Find the primary paper for L05; complete the citation for L04.
@@ -34,3 +34,6 @@ Random cross-validation is known to overstate performance when samples are group
 - L03 (Danko 2021): single 60/40 split, city is the target; external mystery set scored lower for some regions (0.49 South America vs ~0.80 East Asia).
 - L05 primary paper: Kenzi et al., Sci Total Environ (PubMed 42224874): 10-fold CV, LightGBM fold SD of AUC 0.008; split type unstated.
 - Remaining: L01 manual PDF read; L04 full citation.
+
+## Tool search 2026-11-25 (snippets only; verify before citing)
+CORRECTION: the earlier claim 'no reusable tool' was wrong. Existing: DataSAIL (Nat Commun 2025), blockCV (R; leave-group-out in recent versions), BORG (R; includes a random vs blocked CV comparison, the closest overlap), bioLeak (R), mlleak (Python), leakaudit/leakr (R). Action: install BORG and compare outputs on our simulated data before finalising the novelty paragraph; state differences precisely.
