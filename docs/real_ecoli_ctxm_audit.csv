@@ -1,0 +1,7 @@
+dataset,group_variable,n_groups,model,score_group,score_random,score_stratified,optimism,ci_lo,ci_hi,nn_same_group_random,nn_same_group_group,nn_chance_level
+ecoli_resistome_CTX-M,st,218,logreg,0.782,0.8316,0.8315,0.0497,0.0389,0.0583,0.2698,0.0,0.025
+ecoli_resistome_CTX-M,st,218,rf,0.8729,0.8978,0.8976,0.0249,0.0201,0.0294,0.2698,0.0,0.025
+ecoli_resistome_CTX-M,phylogroup,10,logreg,0.7813,0.8316,0.8315,0.0503,0.0461,0.0546,0.5138,0.0,0.201
+ecoli_resistome_CTX-M,phylogroup,10,rf,0.8542,0.8978,0.8976,0.0437,0.0398,0.0473,0.5138,0.0,0.201
+ecoli_resistome_CTX-M,country,56,logreg,0.7672,0.8316,0.8315,0.0644,0.0581,0.0717,0.3156,0.0,0.113
+ecoli_resistome_CTX-M,country,56,rf,0.8286,0.8978,0.8976,0.0692,0.0658,0.0726,0.3156,0.0,0.113

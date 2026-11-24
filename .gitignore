@@ -5,3 +5,10 @@ __pycache__/
 results/*
 !results/.gitkeep
 data/
+
+# raw downloads and papers dropped in the project root
+*.zip
+Tabla_completa*.csv
+40168_*.pdf
+s40168-*.pdf
+Claude outputs/

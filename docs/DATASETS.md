@@ -31,3 +31,10 @@ In D1–D3 each row is a site or sample, so the group must be a coarser unit (bi
 
 ## Gap statement caution
 Leakage in AMR prediction from genomes is already documented (Lüftinger 2021; Hu 2024; Yu 2025). The contribution here is the soil/environmental application, the reusable audit, and the reporting checklist — not the discovery that leakage exists.
+
+## Update 2026-11-24 — datasets actually obtained
+| ID | Dataset | Status |
+|---|---|---|
+| D5 | E. coli resistome matrix, Mendeley doi 10.17632/r5ccbmsnhw.1 (743 genomes) | **OK — used.** Prepared as CTX-M carriage task; groups = sequence type (218), phylogroup (10), country (56). First audit in `docs/real_ecoli_ctxm_audit.csv`. Licence still to record. |
+| D6 | Scottish soil ARG survey, EIDC doi 10.5285/d3498e93-4ac5-4eab-bc1a-eb2328771d24 (183 locations, ~300 ARGs, OGL v3) | **Partial** — only the supporting package downloaded; the data CSV is still missing (see `data/README.md`). |
+| D1 | Delgado-Baquerizo 2022 | Not available (private link not downloadable; authors not expected to share). Supplementary PDF and paper PDF are in the folder but contain no data table. |
