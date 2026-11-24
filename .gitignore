@@ -12,3 +12,6 @@ Tabla_completa*.csv
 40168_*.pdf
 s40168-*.pdf
 Claude outputs/
+
+# moved here by scripts/organize_project.ps1
+literature/
