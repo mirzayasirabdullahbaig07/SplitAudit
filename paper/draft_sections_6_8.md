@@ -1,0 +1,36 @@
+# Sections 6-8 (DRAFT v0): Discussion, Limitations, Conclusion
+
+Status: draft. Every number comes from saved CSVs in `docs/` (see Sections 4-5). Statements marked HYPOTHESIS are untested here. Edit with your collaborators.
+
+## 6. Discussion
+
+**6.1 What the evidence supports.** Across three settings the size of the random-split inflation tracked how identifiable the groups were from the features. In simulation, optimism was about zero when groups could not be recognised from features (fingerprint 0, optimism about -0.003 for all models, 8 datasets) and rose to 0.135 (logistic regression), 0.240 (random forest) and 0.219 (gradient boosting) with strong group fingerprints. In 738 E. coli genomes, random splits overstated AUC in all 36 model, metric, grouping and label combinations, by 0.013 to 0.084, and same-group nearest-neighbour rates sat far above chance (for example 0.27 against 0.025 for sequence type). In the Scottish soil survey the effect was small and inconsistent (median 0.002 to 0.012; the interval excluded zero in 13 of 45 combinations).
+
+**6.2 Why the soil result differs (HYPOTHESIS).** One reading is that gene-detection patterns in this survey carry little group-specific signal relative to the label, so recognising the group helps little. We did not test this. Other readings are equally open: the labels (detection of one gene from the others) may be dominated by within-sample co-occurrence rather than site identity; the 20 km sampling grid may leave neighbouring sites too far apart for spatial autocorrelation to matter at these block sizes; and 199 samples give wide intervals. The nearest-neighbour rate alone does not separate these: with 10 blocks it was 0.18 to 0.21, far above chance, yet optimism stayed small. A high rate indicates risk, not a guaranteed inflation.
+
+**6.3 What the audit is for.** The audit does not say whether a model is good. It says how much the reported score depends on the split. A paper reporting only a random-split score on grouped data leaves that dependence unknown; SplitAudit makes it a number the authors and readers can see, and the checklist (Section 7 of the repository documents) lists what to state.
+
+**6.4 What we saw in the literature, and its limit.** In the small coded sample, split type and handling of near-duplicate samples were often not stated, and one paper filtered features on the full dataset before splitting. This is five papers, two read in full; it shows that such gaps occur, not how often. We make no claim about the field's prevalence of leakage.
+
+**6.5 Practical guidance (modest).** (i) Declare the groups. (ii) Report random and group-held-out scores on the same data and model. (iii) Report an identifiability diagnostic with its chance level. (iv) Check for features that duplicate the label. Items (i), (ii) and (iv) are cheap; our own first E. coli run showed the last matters: duplicate gene naming schemes leaked the label (AUC about 0.99) until we removed both.
+
+## 7. Limitations
+
+1. **Two real datasets, one organism family and one survey.** Results may not transfer to other organisms, labels or sampling designs.
+2. **Uncertainty is understated.** Real-data intervals reflect repeated splits of one dataset, not sampling variability across datasets. Multi-dataset intervals in simulation were wider.
+3. **Optimism is not correctness.** Linked genes (plasmids, operons, clonal lineages) can make part of the group-split performance genuine or, conversely, group effects can remain in group-held-out splits when groups are nested or overlapping (sequence type within phylogroup; countries partly confounded with sampling effort).
+4. **Soil analysis design.** Labels were gene detections chosen by a mechanical rule (prevalence nearest 0.5), not an applied prediction task; the table had no environmental covariates; spatial blocks came from k-means and the block count changed the result; same-operon genes were not removed; one row with an impossible latitude was dropped.
+5. **Default models.** No hyperparameter tuning; three model families only.
+6. **Literature evidence is thin.** Two papers read in full (from fetch summaries, to be re-verified against the PDFs), one abstract-only, two unread; one coder, no agreement estimate.
+7. **Simulation is built to leak.** Simulated optimism (up to 0.24) is a designed effect and should not be read as an estimate for real data (real-data maximum 0.084).
+8. **Checklist untested.** It has been applied to two fully assessed papers only, by the authors.
+
+## 8. Conclusion (draft)
+
+Random cross-validation can overstate performance on grouped data, but how much depends on whether the groups are identifiable from the features. SplitAudit measures this directly with an optimism score, a model-free identifiability diagnostic and a permutation null. In simulation the effect is large when groups leave a recognisable signature and absent when they do not; in E. coli genomes it was consistently positive and modest (0.013 to 0.084 AUC); in a Scottish soil survey it was small and inconsistent. We therefore recommend not a blanket rule but a routine check, reported with the groups declared and the interval's meaning stated. Next steps are validation on more datasets, a systematic review of how environmental AMR studies split their data, and testing the checklist with independent coders.
+
+## Open items before submission
+- Re-verify literature-derived statements against the PDFs; read L01, L04, L05 in full.
+- Add figure captions (Figs 2-5) and cross-references.
+- Record the E. coli dataset licence; fill remaining [CITE] markers using `paper/references.md`.
+- Decide whether to add a third real dataset and a second coder before submission.
