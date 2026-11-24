@@ -1,42 +1,57 @@
 # SplitAudit
-**How much does an ordinary random train/test split overstate performance when samples come in groups (sites, taxa, patients, studies)? A reusable audit — built to be applied to antimicrobial-resistance (AMR) ML.**
+**How much does an ordinary random train/test split overstate performance when samples come in groups (sites, lineages, patients, studies)? An open-source audit, with simulation and two real-data case studies in antimicrobial-resistance (AMR) machine learning.**
 
-Status: framework + tests complete (5 pass). Synthetic sweep works. **No real-data results yet** — you need the real dataset.
+Status (2026-11-25): code and tests; synthetic validation; two real-data case studies; manuscript draft in `paper/MANUSCRIPT_DRAFT.md` (not peer reviewed, not yet submitted). Numbers below come from files in `docs/`; every run is logged in `EXPERIMENT_LOG.md`.
 
-## 1. Why this project
-Many applied-ML papers (including most of those you are reviewing for the AMR-in-soil review) report high accuracy from random cross-validation on data where samples from the same site/organism/study are correlated. If a random split puts relatives in both train and test, the model memorises group fingerprints and the score is optimistic. This is a **data-science methodology** question: no GPU, fast results, and directly useful for your review. Related work shows the issue is recognised in clinical AMR genomics (e.g. phylogeny-aware evaluation in Briefings in Bioinformatics 2024; homology-aware clustering in a 2025 bioRxiv preprint), but I found **no soil-specific audit** in my searches (not proof none exists).
+## 1. What it does
+For the same data and models, SplitAudit compares three five-fold schemes (random, stratified, group-held-out) and reports:
+- **Optimism** = score(random) − score(group), with a bootstrap interval over split repeats.
+- **Same-group nearest-neighbour rate** (model-free): how often a test row's nearest training row is from its own group. Exactly 0 under a group split; under a random split it shows how identifiable the groups are.
+- **Within-group label-permutation null**: the group-split AUC should be near 0.5.
 
-## 2. Research questions
-- **RQ1** Optimism = score(random) − score(group-held-out), with CIs, across models and metrics.
-- **RQ2** What predicts optimism: number of groups, group size, group-effect share, model capacity (logreg vs random forest)?
-- **RQ3 (real data)** Apply to public soil/AMR datasets: how much do published-style random splits overstate?
-- **RQ4 (review)** Code each paper in your review with `docs/review_coding_sheet.csv`; correlate leakage-risk rating with reported scores.
-
-## 3. Design choices and why
-| Choice | Reason |
+## 2. Results so far (see the manuscript for caveats)
+| Setting | Finding |
 |---|---|
-| Compare random / stratified / group splits on identical data and models | Isolates the split as the only difference |
-| Nearest-neighbour same-group rate | A direct, model-free leakage diagnostic: how often is a test row's closest training row from its own group? ≈0 under clean group splits |
-| Label-permutation-within-group null | Sanity check: group-split score must sit at chance; above chance signals a bug |
-| Synthetic data with controllable group-effect share ρ | Gives ground truth for validating the audit: optimism must be ≈0 at ρ=0 and grow with ρ (tests assert this) |
-| Bootstrap CI over repeats | Reports uncertainty, not a single number |
-| Logistic regression and random forest | Low-capacity vs memorisation-prone model |
+| Simulation (8 datasets per cell) | Optimism ≈ 0 when groups cannot be identified from features (`fingerprint_sd=0`); with strong fingerprints (`fingerprint_sd=1.5`, `rho=1`) 0.135 (logreg), 0.240 (random forest), 0.219 (gradient boosting) AUC |
+| E. coli resistome (738 genomes; CTX-M and tet(A) labels; 3 models, AUC and balanced accuracy, groups = sequence type / phylogroup / country) | Optimism positive in 36/36 cells, 0.013 to 0.084; every split-repeat interval excludes 0 |
+| Scottish soil survey (199 samples; 5 gene-detection labels; groups = site name or spatial blocks) | Small and inconsistent: median 0.002 to 0.012; interval excludes 0 in 13 of 45 cells |
 
-## 4. Quick start
+Intervals on real data reflect repeated splits of one dataset only and understate uncertainty across datasets. Simulated optimism is a designed effect, not an estimate for real data.
+
+## 3. Quick start
 ```bash
-pip install -e . pytest && python -m pytest -q      # ~90 s
-splitaudit simulate --repeats 3                      # synthetic rho sweep
-splitaudit audit --csv data.csv --label resistant --group site --repeats 10   # YOUR data
+pip install -e . pytest && python -m pytest -q          # ~90 s
+splitaudit simulate --repeats 3                          # synthetic sweep
+splitaudit simulate --fingerprint-sd 0 1.5 --models logreg rf gb
+splitaudit audit --csv data.csv --label y --group site --repeats 10   # your data
 ```
-Two leakage mechanisms are simulated separately: label leakage (`rho`) and covariate leakage (`fingerprint_sd`, group-specific feature offsets). Optimism needs the model to be able to identify groups from features: at `fingerprint_sd=0` it stays ≈0 even at `rho=1`; at `rho=0` a random forest still shows ≈0.03 AUC optimism from fingerprints alone. Grid: `splitaudit simulate --fingerprint-sd 0 1.5`.
+`audit` uses all numeric columns except the label and group as features unless `--features` is given, and `--metric auc|bacc`. Declare the groups before looking at results.
 
-Synthetic sweep (2 repeats, illustrative only): RF optimism rises from ≈0.03 AUC at ρ=0 to ≈0.23 at ρ=1.
+## 4. Reproducing the paper's numbers
+| What | Command |
+|---|---|
+| Multi-dataset simulation | `python scripts/multiseed.py` |
+| Sensitivity (groups, rows per group) | `python scripts/sensitivity.py` |
+| NN diagnostic | `python scripts/nn_diagnostic.py` |
+| Permutation null and group-split AUC | `python scripts/permutation_null.py <outdir>` |
+| E. coli data preparation | `python scripts/prepare_ecoli.py` (needs the raw file in `data/ecoli_resistome/`) |
+| E. coli audits | `splitaudit audit --csv data/ecoli_resistome/ecoli_ctxm_prepared.csv --label y --group st --repeats 10` (also `phylogroup`, `country`); robustness: `python scripts/real_ecoli_robustness.py` |
+| Soil audit | `python scripts/real_soil_audit.py <csv> <outdir>` |
+| Figures | `scripts/make_fig1.py` … `make_fig5.py` |
 
-## 5. What is verified / not
-Verified: group splits never share groups and random ones do; optimism ≈ 0 when there is no group effect AND no group fingerprint (`rho=0, fingerprint_sd=0`) and large with both (CI excludes 0); monotone in ρ; same-group-NN diagnostic flags random splits; permutation null ≈ chance.
-Not verified: behaviour on real AMR data. **Caveat:** at high ρ, group-split AUC can fall *below* 0.5 (group effects don't transfer, so the model anti-learns). Report this honestly; it is a known artefact, not a bug.
+Some scripts write to temporary or hard-coded paths; check their header before running. Raw data are not in the repository (`data/` is git-ignored); see `data/README.md` for sources, licences and download notes.
 
-## 6. Limitations
-Binary labels only (extend to multi-class/regression); group structure must be known (clonal/phylogenetic relatedness may need clustering — see roadmap); synthetic ≠ real; no time/space blocking beyond a naive `blocked` option.
+## 5. Data and licences
+- E. coli resistome: Mendeley Data, doi 10.17632/r5ccbmsnhw.1, CC BY 4.0.
+- Scottish soil ARG survey: Knapp et al. 2019, NERC EIDC, doi 10.5285/d3498e93-4ac5-4eab-bc1a-eb2328771d24, OGL-UK-3.0 (attribution: "Contains data supplied by UK Centre for Ecology & Hydrology").
+- Code licence: **not yet chosen** — add a `LICENSE` file before release.
 
-See `ROADMAP.md`.
+## 6. Lessons recorded in the log
+- A first E. coli run was invalid: genes appeared under two naming schemes, so the label leaked into the features (AUC ≈ 0.99). Check the most predictive feature before trusting any real-data audit.
+- Single-dataset intervals understate uncertainty; use several datasets where possible.
+- Group-split AUC can fall below 0.5 on individual simulated datasets (not on average at the settings we ran).
+
+## 7. Limitations
+Binary labels only; groups must be known and are treated as given (nested or overlapping groups, e.g. sequence type within phylogroup, need care); optimism measures sensitivity to the split, not model correctness; default untuned models; two real datasets; no temporal blocking; spatial blocks in the soil study were k-means clusters of arbitrary size. Literature statements in the manuscript are partly based on abstracts and fetch summaries and need verification against the papers.
+
+See `PAPER_ROADMAP.md` (paper plan and status), `ROADMAP.md` (project plan), `docs/DATASETS.md`, `docs/LITERATURE_NOTES.md`, `paper/reporting_checklist.md`.
