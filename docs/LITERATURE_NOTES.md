@@ -1,6 +1,6 @@
 # Literature notes — SplitAudit (Week 1)
 
-Status: built from search-result abstracts/snippets only. **No full text has been read.** Every `NOT CHECKED` in `docs/review_coding_sheet.csv` must be filled from the full paper before any claim is made about it. Leakage-risk ratings are deliberately blank.
+Status (updated 2026-11-24): L02 and L03 read via full-text fetch (summaries to re-verify against the PDFs); L05 primary paper located (abstract only); L01 and L04 still unread (L01 full text blocked by bot check). Earlier notes were built from abstracts/snippets. Every `NOT CHECKED` in `docs/review_coding_sheet.csv` must be filled from the full paper before any claim is made about it. Leakage-risk ratings are deliberately blank.
 
 ## A. Soil / environmental ARG machine-learning papers (rows L01–L05 in the coding sheet)
 Zheng 2022 (global soil ARG map); KeshikNevisRazavi 2026 (ARG identification, 98% RF accuracy on 200 samples); Danko 2021 (geographic origin prediction); phyllosphere resistome prediction; a soil-ARG-under-climate-scenarios study (primary paper still to find).
@@ -28,3 +28,9 @@ Random cross-validation is known to overstate performance when samples are group
 2. Read full text of L01–L05 and fill every `NOT CHECKED` field.
 3. Rate leakage risk (low/med/high) from the full text, with a one-line justification in `notes`.
 4. Add the papers your review collaborators are already reading (first 10 papers target).
+
+## Update 2026-11-24 (findings from full-text reads)
+- L02 (KeshikNevisRazavi 2026): feature filter applied before the split; split type and homology between train/test not stated; RF accuracy 0.988 on 200 sequences. Strong audit candidate.
+- L03 (Danko 2021): single 60/40 split, city is the target; external mystery set scored lower for some regions (0.49 South America vs ~0.80 East Asia).
+- L05 primary paper: Kenzi et al., Sci Total Environ (PubMed 42224874): 10-fold CV, LightGBM fold SD of AUC 0.008; split type unstated.
+- Remaining: L01 manual PDF read; L04 full citation.
