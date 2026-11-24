@@ -28,6 +28,7 @@ Coded so far (`docs/review_coding_sheet.csv`):
 - L02 KeshikNevisRazavi 2026: feature filter applied before the split; split type and train/test homology not stated; RF accuracy 0.988 on 200 sequences (full text via fetch summary; re-verify).
 - L03 Danko 2021: single 60/40 split; city is the target; external mystery set scored lower in some regions (full text via fetch summary; re-verify).
 - L05 Kenzi et al., Sci Total Environ: 10-fold CV, split type unstated (abstract only).
+- L06 Delgado-Baquerizo et al. 2022, Microbiome 10:219 (PDF read, Methods only): global map of soil ARG richness and proportion at 1,012 sites with a random forest; the extra check described is a randomized 10% hold-out, no spatial blocking is described, and the text does not say whether the quoted R2 (0.92 and 0.86) is training fit or hold-out. Risk rating left for the human coder.
 - L01 Zheng 2022 and L04: not yet read.
 Five papers is a case sample, not a survey. A systematic review is needed before any statement about how common the issue is; your collaborators' review may supply it.
 

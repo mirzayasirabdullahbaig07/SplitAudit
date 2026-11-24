@@ -12,10 +12,11 @@ This is an estimate of the work needed to reach a postable preprint, not a measu
 | Code and tests | Done (7 tests pass on a clean install) |
 | Simulation study | Done (8-dataset intervals, sensitivity, permutation null; numbers checked against saved files) |
 | Real-data case studies | Done for two datasets: E. coli (consistent effect) and Scottish soil (near-null) |
+| Third dataset | Not done as an audit: Yu et al. 2025 metadata and published results are in `data/yu_amr_bias/`, but the gene-feature file is missing. A secondary analysis of their published numbers is in manuscript Section 5.3 (median random-minus-clade AUC 0.09 over 218 paired cells) |
 | Manuscript | First draft of every section (`paper/MANUSCRIPT_DRAFT.md`); not yet edited or reviewed |
 | Figures | 5 of 5 made; Fig 2 and 3 captions to be checked |
 | Reporting checklist | Drafted; piloted on 2 fully read papers only |
-| Literature review | Weakest part: about 40% of the coded papers unread; statements about other papers need checking against the PDFs |
+| Literature review | Weakest part: about 40% of the coded papers unread (6 coded; L06 Delgado-Baquerizo 2022 added); statements about other papers need checking against the PDFs |
 | Release | Not started: no code licence, tag or DOI yet |
 
 **Remaining:** verify literature claims against the papers; get collaborators' paper list and a second coder; decide authors, venue and licence; edit the manuscript; tag a release and mint a Zenodo DOI; post a preprint.
