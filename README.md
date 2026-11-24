@@ -3,6 +3,26 @@
 
 Status (2026-11-25): code and tests; synthetic validation; two real-data case studies; manuscript draft in `paper/MANUSCRIPT_DRAFT.md` (not peer reviewed, not yet submitted). Numbers below come from files in `docs/`; every run is logged in `EXPERIMENT_LOG.md`.
 
+## Progress (updated 2026-11-25): about 65% toward a preprint
+
+This is an estimate of the work needed to reach a postable preprint, not a measure of quality. Most analysis and drafting exist; checking, outside input and release remain.
+
+| Area | Status |
+|---|---|
+| Code and tests | Done (7 tests pass on a clean install) |
+| Simulation study | Done (8-dataset intervals, sensitivity, permutation null; numbers checked against saved files) |
+| Real-data case studies | Done for two datasets: E. coli (consistent effect) and Scottish soil (near-null) |
+| Manuscript | First draft of every section (`paper/MANUSCRIPT_DRAFT.md`); not yet edited or reviewed |
+| Figures | 5 of 5 made; Fig 2 and 3 captions to be checked |
+| Reporting checklist | Drafted; piloted on 2 fully read papers only |
+| Literature review | Weakest part: about 40% of the coded papers unread; statements about other papers need checking against the PDFs |
+| Release | Not started: no code licence, tag or DOI yet |
+
+**Remaining:** verify literature claims against the papers; get collaborators' paper list and a second coder; decide authors, venue and licence; edit the manuscript; tag a release and mint a Zenodo DOI; post a preprint.
+**Known weaknesses:** two real datasets only (the soil table has no environmental covariates); real-data intervals cover split repeats only; the prevalence of unstated splits in the literature is not yet established.
+
+Detailed plan and status: `PAPER_ROADMAP.md`.
+
 ## 1. What it does
 For the same data and models, SplitAudit compares three five-fold schemes (random, stratified, group-held-out) and reports:
 - **Optimism** = score(random) − score(group), with a bootstrap interval over split repeats.
