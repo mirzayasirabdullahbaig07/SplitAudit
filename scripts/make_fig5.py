@@ -1,4 +1,4 @@
-import sys, matplotlib; matplotlib.use("Agg")
+import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 fig, ax = plt.subplots(figsize=(11, 6.2)); ax.set_xlim(0, 11); ax.set_ylim(0, 6.2); ax.axis("off")
@@ -20,8 +20,8 @@ box(7.5,2.5,3.2,1.2,"Diagnostic B\nWithin-group label permutation:\ngroup-split 
 arr(1.5,4.4,1.5,3.7); arr(7.5,4.4,5.55,3.7); arr(7.5,4.4,8.6,3.7)
 box(2.2,1.85,6.6,0.5,"Read optimism (step 4) together with the checks above",fc="#f5f7fa")
 for x in (1.95,5.55,9.1): arr(x,2.5,min(max(x,3.0),8.0),2.35)
-box(0.3,0.3,4.9,1.05,"Small optimism: random split gives a similar\nanswer on this dataset. Still report both scores\n(a high NN rate signals risk, not certainty).",fc="#eef6ee")
+box(0.3,0.3,4.9,1.05,"Small optimism: random split gives a similar\nanswer on this dataset. Still report both scores\nand the identifiability rate with its chance level.",fc="#eef6ee")
 box(5.8,0.3,4.9,1.05,"Large optimism: report the group-split score\nas the headline and state what the\ninterval covers.",fc="#fdf1e3")
 arr(4.0,1.85,2.75,1.35); arr(7.0,1.85,8.25,1.35)
 ax.text(5.5,-0.1,"Blue = diagnostics; optimism measures sensitivity to the split, not model correctness.",ha="center",fontsize=8.5,color=mute)
-fig.savefig((sys.argv[1] if len(sys.argv)>1 else "docs")+"/fig5_audit_flow.png",dpi=200,bbox_inches="tight",facecolor="white")
+fig.savefig("fig5_audit_flow.png",dpi=200,bbox_inches="tight",facecolor="white")

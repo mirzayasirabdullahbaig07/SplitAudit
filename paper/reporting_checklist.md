@@ -19,7 +19,7 @@ Purpose: a short list a paper can answer in a sentence each, so readers can judg
 10. **Sample selection tied to the label.** Were negatives or samples chosen using properties that differ by label? *(observed: L02 negatives selected on feature differences.)*
 
 ## D. Diagnostics
-11. **Identifiability.** Report the same-group nearest-neighbour rate under a random split with its chance level. A rate far above chance means groups are recognisable. *(E. coli ST: 0.27 vs 0.025.)* Note: in soil, high-ish rates with 10 blocks (0.18-0.21) still gave small optimism, so a high rate signals risk, not certainty.
+11. **Identifiability.** Report the same-group nearest-neighbour rate under a random split together with its chance level (the sum of squared group proportions), and the excess over chance. A large excess means groups are recognisable from the features. *(E. coli ST: 0.27 vs 0.025; soil 10 spatial blocks: 0.18-0.21 vs 0.113, a small excess, with small optimism.)* The rate describes identifiability; it does not by itself predict the size of the optimism, which also depends on how much the label varies by group.
 12. **Permutation null.** Within-group label permutation under group splits should give AUC near 0.5.
 13. **External set.** If an external or held-out-group set exists, report it next to the internal score. *(L03: external scores lower for some regions.)*
 
