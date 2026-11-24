@@ -1,4 +1,4 @@
-import matplotlib; matplotlib.use("Agg")
+import sys, matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 fig, ax = plt.subplots(figsize=(11, 6.2)); ax.set_xlim(0, 11); ax.set_ylim(0, 6.2); ax.axis("off")
@@ -24,4 +24,4 @@ box(0.3,0.3,4.9,1.05,"Small optimism: random split gives a similar\nanswer on th
 box(5.8,0.3,4.9,1.05,"Large optimism: report the group-split score\nas the headline and state what the\ninterval covers.",fc="#fdf1e3")
 arr(4.0,1.85,2.75,1.35); arr(7.0,1.85,8.25,1.35)
 ax.text(5.5,-0.1,"Blue = diagnostics; optimism measures sensitivity to the split, not model correctness.",ha="center",fontsize=8.5,color=mute)
-fig.savefig("fig5_audit_flow.png",dpi=200,bbox_inches="tight",facecolor="white")
+fig.savefig((sys.argv[1] if len(sys.argv)>1 else "docs")+"/fig5_audit_flow.png",dpi=200,bbox_inches="tight",facecolor="white")

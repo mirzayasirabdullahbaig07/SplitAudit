@@ -4,12 +4,12 @@ Do not tag until: tests pass on a clean install, LICENSE chosen, scripts' output
 
 ## Added since v0.1.0
 - Gradient boosting model (`--models gb`); covariate leakage control (`--fingerprint-sd`); balanced accuracy metric.
-- Scripts: multi-dataset simulation, sensitivity grid, NN diagnostic, permutation null, E. coli preparation and audits, soil audit, five figure scripts.
+- Scripts (output paths are arguments): multi-dataset simulation (also writes the summary table), sensitivity grid, NN diagnostic, permutation null, E. coli preparation and audits, soil audit, five figure scripts.
 - Docs: dataset register, literature notes, coding sheet, reporting checklist and pilot, references, manuscript draft, number check.
 - Results CSVs under `docs/`; experiment log.
 
 ## Known issues
-- Some scripts use hard-coded output paths (`/tmp/...`) — parameterise before release.
+- Script output paths were parameterised on 2026-11-25; not yet re-run end to end on a clean checkout.
 - Real-data intervals cover split repeats only.
 - Tests: 7 (5 original + 2 fingerprint tests); not run on a clean machine since the latest changes.
 

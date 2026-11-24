@@ -33,13 +33,13 @@ splitaudit audit --csv data.csv --label y --group site --repeats 10   # your dat
 | Multi-dataset simulation | `python scripts/multiseed.py` |
 | Sensitivity (groups, rows per group) | `python scripts/sensitivity.py` |
 | NN diagnostic | `python scripts/nn_diagnostic.py` |
-| Permutation null and group-split AUC | `python scripts/permutation_null.py <outdir>` |
+| Permutation null and group-split AUC | `python scripts/permutation_null.py <outdir>` (outdir must exist) |
 | E. coli data preparation | `python scripts/prepare_ecoli.py` (needs the raw file in `data/ecoli_resistome/`) |
 | E. coli audits | `splitaudit audit --csv data/ecoli_resistome/ecoli_ctxm_prepared.csv --label y --group st --repeats 10` (also `phylogroup`, `country`); robustness: `python scripts/real_ecoli_robustness.py` |
-| Soil audit | `python scripts/real_soil_audit.py <csv> <outdir>` |
-| Figures | `scripts/make_fig1.py` … `make_fig5.py` |
+| Soil audit | `python scripts/real_soil_audit.py data/scottish_soil/N019776_Scotland_soil_survey_antibiotic_resistance_genes.csv docs` |
+| Figures | `python scripts/make_fig2.py`, `make_fig3.py`; `make_fig1.py [outdir]`, `make_fig5.py [outdir]`, `make_fig4.py [folder with the CSVs]` |
 
-Some scripts write to temporary or hard-coded paths; check their header before running. Raw data are not in the repository (`data/` is git-ignored); see `data/README.md` for sources, licences and download notes.
+Scripts take optional output paths (defaults point into `docs/` or `data/`; run from the repository root). `multiseed.py` writes both the raw and the summary CSV (t-intervals across datasets). Raw data are not in the repository (`data/` is git-ignored); see `data/README.md` for sources, licences and download notes.
 
 ## 5. Data and licences
 - E. coli resistome: Mendeley Data, doi 10.17632/r5ccbmsnhw.1, CC BY 4.0.

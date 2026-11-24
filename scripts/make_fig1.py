@@ -1,4 +1,4 @@
-import numpy as np, matplotlib; matplotlib.use("Agg")
+import sys, numpy as np, matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse, FancyArrowPatch
 rng=np.random.default_rng(3)
@@ -40,4 +40,4 @@ fig.legend(handles=[Line2D([0],[0],marker="o",color="w",mfc=train,ms=7,label="tr
 fig.suptitle("Where leakage enters: group identity is recognisable only when groups share a split",x=0.02,y=0.985,ha="left",fontsize=12.5,fontweight="bold",color=ink)
 fig.text(0.02,0.075,"Toy illustration with simulated points (not data from this study). Optimism = random-split score minus group-split score.",fontsize=8,color=mute)
 fig.tight_layout(rect=(0,0.09,1,0.92))
-fig.savefig("fig1_split_schematic.png",dpi=200,facecolor="white")
+fig.savefig((sys.argv[1] if len(sys.argv)>1 else "docs")+"/fig1_split_schematic.png",dpi=200,facecolor="white")

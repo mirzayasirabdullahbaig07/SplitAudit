@@ -1,8 +1,9 @@
-import pandas as pd, numpy as np, matplotlib; matplotlib.use("Agg")
+import sys, pandas as pd, numpy as np, matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-e=pd.read_csv("real_ecoli_robustness.csv"); e=e[e.metric=="auc"]
-s=pd.read_csv("real_soil_audit.csv")
+D=sys.argv[1] if len(sys.argv)>1 else "docs"   # folder with the CSVs; figure is written there too
+e=pd.read_csv(f"{D}/real_ecoli_robustness.csv"); e=e[e.metric=="auc"]
+s=pd.read_csv(f"{D}/real_soil_audit.csv")
 col={"logreg":"#0072B2","rf":"#D55E00","gb":"#009E73"}; mk={"logreg":"o","rf":"s","gb":"D"}
 off={"logreg":-0.22,"rf":0,"gb":0.22}
 ink="#1f2933"; mute="#52606d"; grid="#e4e7eb"
@@ -34,4 +35,4 @@ axs[0].legend(handles=[Line2D([0],[0],marker=mk[m],color=col[m],lw=1.6,ms=6,labe
 fig.suptitle("Random splits overstated AUC clearly in E. coli, but only slightly and inconsistently in soil",x=0.02,ha="left",fontsize=12,fontweight="bold",color=ink,y=0.995)
 fig.text(0.02,0.012,"Intervals reflect repeated splits of one dataset only and understate uncertainty across datasets.",fontsize=8,color=mute)
 fig.tight_layout(rect=(0,0.02,1,0.975))
-fig.savefig("fig4_real_data_optimism.png",dpi=200,facecolor="white")
+fig.savefig(f"{D}/fig4_real_data_optimism.png",dpi=200,facecolor="white")
