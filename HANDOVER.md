@@ -17,6 +17,7 @@ SplitAudit asks how much an ordinary random train/test split overstates performa
 | Reporting checklist and pilot | `paper/reporting_checklist.md`, `paper/checklist_pilot.*` |
 | Data sources, licences, caveats (data not in git) | `data/README.md`, `docs/DATASETS.md` |
 | Data layout (all under `data/`, not in git): `ecoli_resistome/`, `scottish_soil/`, `yu_amr_bias/{metadata,authors_results}/`, `_zips/`; PDFs in `literature/` | `data/README.md` |
+| Yu et al. audits (E. coli, Salmonella) | `scripts/prepare_yu_ecoli.py`, `scripts/real_yu_ecoli_audit.py`, `scripts/real_yu_audit.py`, `docs/real_yu_ecoli_audit.csv`, `docs/real_yu_salmonella_audit.csv`, manuscript Sections 5.3-5.4 |
 | Secondary analysis of Yu et al. published results | `scripts/yu_published_optimism.py`, `docs/yu_published_optimism_*.csv`, manuscript Section 5.3 |
 | Code | `src/splitaudit/`, `scripts/`, `tests/` (7 tests pass on a clean install) |
 | Release plan | `docs/RELEASE_NOTES_draft.md` |
@@ -54,7 +55,7 @@ Needs verification before submission:
 1. Read the manuscript; mark disagreements.
 2. Verify literature claims against PDFs; complete the coding sheet and references.
 3. Decide authors, licence, venue; add `LICENSE`, `CITATION.cff`.
-4. Decide on a third dataset and a second coder. Candidate: Yu, Wheeler & Barquist 2025 (Mendeley doi 10.17632/zs2mbjv7dn.3, CC BY 4.0). We hold its metadata and the authors' result tables but not `gene_presence_absence.Rtab`; MLST alleles cannot be features (they define the ST). Section 5.3 is only a secondary analysis of the authors' published numbers.
+4. Two datasets from Yu, Wheeler & Barquist 2025 (CC BY 4.0) are now audited: E. coli (Section 5.3; median 0.096 AUC) and Salmonella enterica (Section 5.4; median 0.171), 30 cells each, 5 repeats, all positive. Open points: the Salmonella effect is larger than the authors' own published S. enterica pairs (0.063) and we have not explained the gap; feature filter tightened after one pilot cell (E. coli only); K. pneumoniae gene matrix is on hand but not audited (its metadata may lack fastbaps); default models. A second coder for the literature sheet is still needed.
 5. Edit the manuscript (expect one or two rounds), regenerate figures if anything changes.
 6. Re-run long scripts from a clean checkout, tag `v0.2.0`, mint a Zenodo DOI, post a preprint.
 

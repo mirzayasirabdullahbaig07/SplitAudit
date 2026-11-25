@@ -21,3 +21,15 @@ Method: recomputed from saved CSVs in docs/ (and the two files created in this s
 
 ## Correction 2026-11-25 (identifiability)
 Soil same-group NN rates were compared with a chance level of 1/groups in earlier text. Actual chance (sum of squared group proportions) is 0.007 (site), 0.113 (10 blocks), 0.054 (20 blocks). The earlier statements 'far above chance' (Sec 6.2) and 'a high rate signals risk, not certainty' (checklist item 11, Fig 5) were wrong and are rewritten. Source: docs/nn_vs_optimism.csv.
+
+## Added 2026-11-25: Section 5.4 (Yu et al. published results)
+All numbers from docs/yu_published_optimism_cells.csv and _summary.csv (computed from TS2.tsv). Pairing check: max training-size difference between paired random and clade cells 2e-13. Not yet compared against the authors' paper text.
+
+## Added 2026-11-25: Section 5.3 (third dataset, own audit)
+All numbers from docs/real_yu_ecoli_audit.csv (30 rows): positive cells 30/30, median 0.091, medians by grouping, model and label, NN rates and chance levels (chance = sum of squared group proportions on the labelled sample). Spearman(excess NN, optimism) = 0.34, p = 0.066. Two repeats only: no intervals reported.
+
+## Updated 2026-11-25: Section 5.3 now uses the 5-repeat run
+docs/real_yu_ecoli_audit.csv holds the 5-repeat results (30 rows): 30/30 positive and 30/30 intervals excluding zero; median 0.096, range 0.043 to 0.297; ST 0.078, fastbaps 0.111; gb 0.059, logreg 0.102, rf 0.123; labels cefotaxime 0.070, amoxicillin 0.079, trimethoprim 0.116, amoxicillin-clavulanic acid 0.123, ciprofloxacin 0.138; median AUC 0.855 random, 0.771 ST, 0.760 fastbaps; interval width median 0.016. Spearman(excess NN, optimism) 0.28, p = 0.135. The earlier 2-repeat figures (median 0.091 etc.) are superseded.
+
+## Added 2026-11-25: Section 5.4 (Salmonella, own audit)
+All numbers from docs/real_yu_salmonella_audit.csv (30 rows): 30/30 positive, 30/30 intervals above 0 (median width 0.014); median 0.171, range 0.066 to 0.444; ST 0.126, fastbaps 0.276; gb 0.144, rf 0.151, logreg 0.260; labels tetracycline 0.122, streptomycin 0.156, sulfisoxazole 0.175, ampicillin 0.235, chloramphenicol 0.287; median AUC 0.943 random, 0.805 ST, 0.643 fastbaps; NN rate ST 0.93-0.96 (chance 0.07-0.11), fastbaps 0.97-0.99 (chance 0.10-0.15); excess 0.83 to 0.88; Spearman 0.22, p = 0.23. Sections 5.4-5.5 were renumbered (secondary analysis is now 5.5, limitations 5.6).

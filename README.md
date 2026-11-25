@@ -3,7 +3,7 @@
 
 Status (2026-11-25): code and tests; synthetic validation; two real-data case studies; manuscript draft in `paper/MANUSCRIPT_DRAFT.md` (not peer reviewed, not yet submitted). Numbers below come from files in `docs/`; every run is logged in `EXPERIMENT_LOG.md`.
 
-## Progress (updated 2026-11-25): about 65% toward a preprint
+## Progress (updated 2026-11-25): about 78% toward a preprint
 
 This is an estimate of the work needed to reach a postable preprint, not a measure of quality. Most analysis and drafting exist; checking, outside input and release remain.
 
@@ -12,9 +12,9 @@ This is an estimate of the work needed to reach a postable preprint, not a measu
 | Code and tests | Done (7 tests pass on a clean install) |
 | Simulation study | Done (8-dataset intervals, sensitivity, permutation null; numbers checked against saved files) |
 | Real-data case studies | Done for two datasets: E. coli (consistent effect) and Scottish soil (near-null) |
-| Third dataset | Not done as an audit: Yu et al. 2025 metadata and published results are in `data/yu_amr_bias/`, but the gene-feature file is missing. A secondary analysis of their published numbers is in manuscript Section 5.3 (median random-minus-clade AUC 0.09 over 218 paired cells) |
-| Manuscript | First draft of every section (`paper/MANUSCRIPT_DRAFT.md`); not yet edited or reviewed |
-| Figures | 5 of 5 made; Fig 2 and 3 captions to be checked |
+| Third and fourth datasets | Done: E. coli (5,836 genomes) and Salmonella enterica (3,619 genomes with gene presence/absence), 30 cells each, 5 repeats; optimism positive with interval above zero in all 60 (medians 0.096 and 0.171 AUC; manuscript Sections 5.3-5.4). Yu et al. published results re-analysed in Section 5.5 |
+| Manuscript | First draft of every section (`paper/MANUSCRIPT_DRAFT.md`), abstract and discussion updated for four settings; not yet edited or reviewed |
+| Figures | 6 of 6 made (Fig 6 now covers all four settings); Fig 2 and 3 captions to be checked |
 | Reporting checklist | Drafted; piloted on 2 fully read papers only |
 | Literature review | Weakest part: about 40% of the coded papers unread (6 coded; L06 Delgado-Baquerizo 2022 added); statements about other papers need checking against the PDFs |
 | Release | Not started: no code licence, tag or DOI yet |

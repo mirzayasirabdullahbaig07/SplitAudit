@@ -19,7 +19,7 @@ FROM THE DATASET FILE (ro-crate-metadata.json), not re-checked online:
 - [Knapp2019] Knapp CW, Graham DW, Freitag T, Pagaling E, Hough R, Avery L, Zhu Y-G, Su J, Zhou XY. Antibiotic resistance genes found in soils across the entire Scottish landscape (2007-10). NERC EIDC, 2019. doi:10.5285/d3498e93-4ac5-4eab-bc1a-eb2328771d24. Licence OGL-UK-3.0.
 
 FROM EARLIER SEARCHES / ABSTRACTS, still to verify:
-- [Zheng2022] Zheng D, et al. Sci Adv 2022;8(46):eabq8015.
+- [Zheng2022] Zheng D, Yin G, Liu M, Hou L, Yang Y, Van Boeckel TP, Zheng Y, Li Y. Global biogeography and projection of soil antibiotic resistance genes. Sci Adv 2022;8(46):eabq8015. doi:10.1126/sciadv.abq8015. Main text read 2026-11-25 (pasted from PMC9668297); supplement not read. [now verified: authors, title, venue, year]
 - [Danko2021] Danko D, Mason C, Vassilev D. Front Genet 2021;12:642991.
 - [KeshikNevisRazavi2026] Int J Soil Water Res 2026 (volume/pages missing).
 - [Kenzi] Kenzi M, et al. Sci Total Environ (PubMed 42224874; volume/pages/year missing).
